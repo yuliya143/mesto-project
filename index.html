@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Mesto</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Путешествия по планете" />
+    <meta name="keywords" content="Путешествия, достопримечательности, фотографии" />
+    <meta name="author" content="Юлия Заболотная" />
+    <link rel="stylesheet" href="pages/index.css" />
+  </head>
+  <body>
+    <div class="page">
+      <div class="page__container">
+        <header class="header">
+          <img src="./images/header-logo.svg" alt="Логотип Место" class="header__logo" />
+        </header>
+
+        <main class="content">
+          <div class="profile">
+            <div class="profile__content">
+              <img
+                srcset="./images/photo-profile.webp, ./images/photo-profile@2x.webp 2x"
+                src="./images/photo-profile.jpg"
+                alt="Фото профиля"
+                class="profile__photo"
+              />
+              <div class="profile__info">
+                <div class="profile__info-container">
+                  <h1 class="profile__name"></h1>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    class="profile__edit-icon"
+                  >
+                    <path stroke="#fff" d="M.5.5h23v23H.5z" />
+                    <path
+                      fill="#fff"
+                      d="M17 8.3283l-7.3962 7.4383-1.3208-1.3472L15.6604 7 17 8.3283zM7 17l1.9623-.5882-1.3774-1.3283L7 17z"
+                    />
+                  </svg>
+                </div>
+                <p class="profile__profession"></p>
+              </div>
+            </div>
+            <button class="profile__button">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 22 22">
+                <path
+                  fill="#fff"
+                  d="M22 9.7778h-9.7778V0H9.7778v9.7778H0v2.4444h9.7778V22h2.4444v-9.7778H22V9.7778z"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <div class="gallery">
+            <ul class="gallery__list">
+              <li class="place">
+                <img
+                  srcset="./images/photo-karachaevsk.webp, ./images/photo-karachaevsk@2x.webp 2x"
+                  src="./images/photo-karachaevsk.jpg"
+                  alt="Старинная кирпичная церковь"
+                  class="place__image"
+                />
+                <div class="place__content">
+                  <h3 place="place__title"></h3>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 22 19"
+                    class="place__icon"
+                  >
+                    <path
+                      fill="#000"
+                      d="M20.2991 9.7859c2.2679-2.2425 2.2679-5.8838 0-8.104-2.268-2.2425-5.9505-2.2425-8.2185 0L10.9804 2.792 9.8801 1.704C7.612-.5605 3.9296-.5605 1.684 1.682.5838 2.7698 0 4.2129 0 5.7449c0 1.532.6063 2.9752 1.6841 4.0632L10.9804 19l9.3187-9.2141zm-18.862-4.041c0-1.1545.4491-2.2202 1.28-3.0195.8532-.8437 1.9535-1.2656 3.0538-1.2656 1.1002 0 2.2005.4219 3.0538 1.2656l2.1557 2.1092 2.1556-2.1314c1.6841-1.6652 4.446-1.6652 6.1077 0 .8084.7993 1.2799 1.865 1.2799 3.0196 0 1.1545-.4491 2.2202-1.2799 3.0195l-8.2633 8.1928L2.717 8.7645C1.9086 7.943 1.4371 6.8773 1.4371 5.745z"
+                    />
+                  </svg>
+                </div>
+              </li>
+              <li class="place">
+                <img
+                  srcset="./images/photo-gora-elbrus.webp, ./images/photo-gora-elbrus@2x.webp 2x"
+                  src="./images/photo-gora-elbrus.jpg"
+                  alt="Гора Эльбрус на закате"
+                  class="place__image"
+                />
+                <div class="place__content">
+                  <h3 place="place__title"></h3>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 22 19"
+                    class="place__icon"
+                  >
+                    <path
+                      fill="#000"
+                      d="M20.2991 9.7859c2.2679-2.2425 2.2679-5.8838 0-8.104-2.268-2.2425-5.9505-2.2425-8.2185 0L10.9804 2.792 9.8801 1.704C7.612-.5605 3.9296-.5605 1.684 1.682.5838 2.7698 0 4.2129 0 5.7449c0 1.532.6063 2.9752 1.6841 4.0632L10.9804 19l9.3187-9.2141zm-18.862-4.041c0-1.1545.4491-2.2202 1.28-3.0195.8532-.8437 1.9535-1.2656 3.0538-1.2656 1.1002 0 2.2005.4219 3.0538 1.2656l2.1557 2.1092 2.1556-2.1314c1.6841-1.6652 4.446-1.6652 6.1077 0 .8084.7993 1.2799 1.865 1.2799 3.0196 0 1.1545-.4491 2.2202-1.2799 3.0195l-8.2633 8.1928L2.717 8.7645C1.9086 7.943 1.4371 6.8773 1.4371 5.745z"
+                    />
+                  </svg>
+                </div>
+              </li>
+              <li class="place">
+                <img
+                  srcset="./images/photo-dombai.webp, ./images/photo-dombai@2x.webp 2x"
+                  src="./images/photo-dombai.jpg"
+                  alt="Заснеженный горный пик на фоне оесеннего лесного массива"
+                  class="place__image"
+                />
+                <div class="place__content">
+                  <h3 place="place__title"></h3>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 22 19"
+                    class="place__icon"
+                  >
+                    <path
+                      fill="#000"
+                      d="M20.2991 9.7859c2.2679-2.2425 2.2679-5.8838 0-8.104-2.268-2.2425-5.9505-2.2425-8.2185 0L10.9804 2.792 9.8801 1.704C7.612-.5605 3.9296-.5605 1.684 1.682.5838 2.7698 0 4.2129 0 5.7449c0 1.532.6063 2.9752 1.6841 4.0632L10.9804 19l9.3187-9.2141zm-18.862-4.041c0-1.1545.4491-2.2202 1.28-3.0195.8532-.8437 1.9535-1.2656 3.0538-1.2656 1.1002 0 2.2005.4219 3.0538 1.2656l2.1557 2.1092 2.1556-2.1314c1.6841-1.6652 4.446-1.6652 6.1077 0 .8084.7993 1.2799 1.865 1.2799 3.0196 0 1.1545-.4491 2.2202-1.2799 3.0195l-8.2633 8.1928L2.717 8.7645C1.9086 7.943 1.4371 6.8773 1.4371 5.745z"
+                    />
+                  </svg>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </main>
+
+        <footer class="footer">
+          <p class="footer__copyright"></p>
+        </footer>
+        <!--
+        <div class="popup popup_opened">
+          <form class="form popup__container">
+            <h2 class="form__heading">Редактировать профиль</h2>
+
+            <input
+              type="text"
+              class="form__item form__item_el_full-name"
+              id="full-name"
+              name="full-name"
+              placeholder="Жак-Ив Кусто"
+              required
+            />
+
+            <input
+              type="text"
+              class="form__item form__item_el_occupation"
+              id="occupation"
+              name="occupation"
+              placeholder="Исследователь океана"
+              required
+            />
+
+            <button class="form__button" type="submit">Сохранить</button>
+          </form>
+        </div>
+
+
+      --></div>
+    </div>
+  </body>
+</html>
