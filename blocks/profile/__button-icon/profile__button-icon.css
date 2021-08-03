@@ -1,0 +1,9 @@
+.profile__button-icon {
+  width: 16px;
+}
+
+@media (min-width: 768px) {
+  .profile__button-icon {
+    width: 22px;
+  }
+}

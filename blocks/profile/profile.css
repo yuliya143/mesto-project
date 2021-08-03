@@ -1,0 +1,16 @@
+.profile {
+  margin: 0 auto;
+  background-color: #000;
+  font-family: "Inter", "Arial", sans-serif;
+  color: #fff;
+  padding: 38px 19px 36px;
+}
+
+@media (min-width: 768px) {
+  .profile {
+    padding: 36px 0 47px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
