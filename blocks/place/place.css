@@ -1,0 +1,8 @@
+.place {
+  font-family: "Inter", "Arial", sans-serif;
+  color: #000;
+  line-height: 0;
+  background: #fff;
+  border-radius: 10px;
+  width: 100%;
+}

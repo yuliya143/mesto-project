@@ -1,0 +1,6 @@
+.place__content {
+  padding: 25px 15px 25px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}

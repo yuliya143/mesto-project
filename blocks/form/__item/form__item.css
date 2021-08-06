@@ -1,0 +1,14 @@
+.form__item {
+  border: 0;
+  width: 100%;
+  box-sizing: border-box;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  line-height: 1.21;
+  margin-bottom: 17px;
+  padding: 13px 0;
+}
+
+.form__item::placeholder {
+  color: #000;
+}

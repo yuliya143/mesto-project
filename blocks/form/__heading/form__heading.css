@@ -1,0 +1,15 @@
+.form__heading {
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 1.22;
+  margin-top: 0;
+  margin-bottom: 62px;
+}
+
+@media (min-width: 568px) {
+  .form__heading {
+    font-size: 24px;
+    line-height: 1.21;
+    margin-bottom: 41px;
+  }
+}

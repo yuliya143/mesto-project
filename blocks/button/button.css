@@ -1,0 +1,11 @@
+.button {
+  all: unset;
+  line-height: 0;
+  transition: opacity 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button:hover {
+    opacity: 0.6;
+  }
+}
