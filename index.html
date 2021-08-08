@@ -51,7 +51,7 @@
         </header>
 
         <main class="content">
-          <div class="profile">
+          <section class="profile">
             <div class="profile__content">
               <img
                 srcset="./images/photo-profile.webp, ./images/photo-profile@2x.webp 2x"
@@ -76,9 +76,9 @@
                 <use xlink:href="#plus" />
               </svg>
             </button>
-          </div>
+          </section>
 
-          <div class="gallery">
+          <section class="gallery">
             <ul class="gallery__list">
               <li class="place">
                 <img
@@ -89,10 +89,7 @@
                 />
                 <div class="place__content">
                   <h2 class="place__title">Карачаево-Черкессия</h2>
-                  <button
-                    type="button"
-                    class="place__like-button place__like-button_state_active button"
-                  >
+                  <button type="button" class="place__like-button place__like-button_active button">
                     <svg class="place__icon" fill="currentColor">
                       <use xlink:href="#heart" />
                     </svg>
@@ -108,7 +105,7 @@
                 />
                 <div class="place__content">
                   <h2 class="place__title">Гора Эльбрус</h2>
-                  <button class="place__like-button button">
+                  <button type="button" class="place__like-button button">
                     <svg class="place__icon" fill="currentColor">
                       <use xlink:href="#heart" />
                     </svg>
@@ -124,7 +121,7 @@
                 />
                 <div class="place__content">
                   <h2 class="place__title">Домбай</h2>
-                  <button class="place__like-button button">
+                  <button type="button" class="place__like-button button">
                     <svg class="place__icon" fill="currentColor">
                       <use xlink:href="#heart" />
                     </svg>
@@ -140,7 +137,7 @@
                 />
                 <div class="place__content">
                   <h2 class="place__title">Гора Эльбрус</h2>
-                  <button class="place__like-button button">
+                  <button type="button" class="place__like-button button">
                     <svg class="place__icon" fill="currentColor">
                       <use xlink:href="#heart" />
                     </svg>
@@ -156,7 +153,7 @@
                 />
                 <div class="place__content">
                   <h2 class="place__title">Домбай</h2>
-                  <button class="place__like-button button">
+                  <button type="button" class="place__like-button button">
                     <svg class="place__icon" fill="currentColor">
                       <use xlink:href="#heart" />
                     </svg>
@@ -172,7 +169,7 @@
                 />
                 <div class="place__content">
                   <h2 class="place__title">Карачаевск</h2>
-                  <button class="place__like-button button">
+                  <button type="button" class="place__like-button button">
                     <svg class="place__icon" fill="currentColor">
                       <use xlink:href="#heart" />
                     </svg>
@@ -180,7 +177,7 @@
                 </div>
               </li>
             </ul>
-          </div>
+          </section>
         </main>
 
         <footer class="footer">
@@ -189,14 +186,12 @@
 
         <div class="popup popup_opened">
           <div class="popup__container">
-            <div class="popup__close">
-              <button class="popup__close-button button">
-                <svg class="popup__close-icon" fill="none">
-                  <use xlink:href="#close" />
-                </svg>
-              </button>
-            </div>
-            <form class="form">
+            <button type="button" class="popup__close-button button">
+              <svg class="popup__close-icon" fill="none">
+                <use xlink:href="#close" />
+              </svg>
+            </button>
+            <form class="form" name="user">
               <h2 class="form__heading">Редактировать профиль</h2>
 
               <input
@@ -217,7 +212,7 @@
                 required
               />
 
-              <button class="form__button button" type="submit">Сохранить</button>
+              <button type="submit" class="form__button button">Сохранить</button>
             </form>
           </div>
         </div>
