@@ -11,4 +11,5 @@
 
 .form__item::placeholder {
   color: #000;
+  opacity: 1;
 }
