@@ -3,5 +3,6 @@
   "tabWidth": 2,
   "endOfLine": "lf",
   "printWidth": 100,
-  "htmlWhitespaceSensitivity": "ignore"
+  "htmlWhitespaceSensitivity": "ignore",
+  "singleQuote": true
 }
