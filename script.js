@@ -1,27 +1,46 @@
-const editButton = document.querySelector('.profile__edit-button');
-const popup = document.querySelector('.popup');
+function addListenersToOpenPopupButtons() {
+  const popupsButtons = Array.from(document.querySelectorAll('[data-popup]'));
+  popupsButtons.forEach((btn) => {
+    btn.addEventListener('click', openPopup);
+  });
+}
 
-function openPopup() {
+function openPopup(event) {
+  const popupType = event.currentTarget.dataset.popup;
+  const popup = document.querySelector(`.popup_type_${popupType}`);
   popup.classList.add('popup_opened');
 }
-editButton.addEventListener('click', openPopup);
 
-const closeButton = document.querySelector('.popup__close-button');
-function closePopup() {
-  popup.classList.remove('popup_opened');
+function addCloseListenersToPopups() {
+  const popups = Array.from(document.querySelectorAll('.popup'));
+  popups.forEach((popup) => {
+    popup.addEventListener('click', closePopup);
+  });
 }
-closeButton.addEventListener('click', closePopup);
 
-const form = document.querySelector('.form');
+function closePopup(event) {
+  const popup = event.currentTarget;
+  const isPopupCloseButtonClicked = event.target.closest('.popup__close-button');
+  const isOverlayClicked = event.target.classList.contains('popup');
+
+  if (isPopupCloseButtonClicked || isOverlayClicked) {
+    popup.classList.remove('popup_opened');
+  }
+}
+
+addListenersToOpenPopupButtons();
+addCloseListenersToPopups();
+
+const formProfile = document.querySelector('.form_type_profile');
 const nameInput = document.querySelector('.form__item_el_full-name');
 const jobInput = document.querySelector('.form__item_el_occupation');
 const nameProfile = document.querySelector('.profile__name');
 const jobProfile = document.querySelector('.profile__profession');
 
-form.addEventListener('submit', submitForm);
+formProfile.addEventListener('submit', submitProfileForm);
 
-function submitForm(evt) {
-  evt.preventDefault();
+function submitProfileForm(event) {
+  event.preventDefault();
 
   const nameText = nameInput.value.trim();
   const jobText = jobInput.value.trim();
@@ -31,7 +50,29 @@ function submitForm(evt) {
     jobProfile.textContent = jobText;
   }
 
-  closePopup();
+  event.currentTarget.closest('.popup').classList.remove('popup_opened');
+}
+
+const formPlace = document.querySelector('.form_type_place');
+const placeName = document.querySelector('.form__item_el_new_place');
+const placeImage = document.querySelector('.form__item_el_link-image');
+
+formPlace.addEventListener('submit', submitPlaceForm);
+
+function submitPlaceForm(event) {
+  event.preventDefault();
+
+  const place = placeName.value.trim();
+  const image = placeImage.value.trim();
+
+  if (place && image) {
+    const newCard = createCard(place, image);
+    appendCard(newCard);
+  }
+
+  event.currentTarget.closest('.popup').classList.remove('popup_opened');
+  placeName.value = '';
+  placeImage.value = '';
 }
 
 const initialCards = [
@@ -61,39 +102,31 @@ const initialCards = [
   },
 ];
 
-function createCard(place) {
-  const str = `<li class="place">
-  <img
-    src="${place.link}"
-    alt="${place.name}"
-    class="place__image"
-  />
-  <div class="place__content">
-    <h2 class="place__title">${place.name}</h2>
-    <button type="button" class="place__like-button button">
-      <svg class="place__icon" fill="currentColor">
-        <use xlink:href="#heart" />
-      </svg>
-    </button>
-  </div>
-</li>`;
-  return str;
+function appendCard(placeElement) {
+  const galleryList = document.querySelector('.gallery__list');
+  galleryList.append(placeElement);
 }
 
-let places = '';
-for (let i = 0; i < initialCards.length; i++) {
-  places += createCard(initialCards[i]);
+function createCard(nameValue, linkValue) {
+  const placeTemplate = document.querySelector('#place-template').content;
+  const placeElement = placeTemplate.querySelector('.place').cloneNode(true);
+  const title = placeElement.querySelector('.place__title');
+  const image = placeElement.querySelector('.place__image');
+
+  title.textContent = nameValue;
+  image.setAttribute('src', linkValue);
+  image.setAttribute('alt', nameValue);
+
+  return placeElement;
 }
-console.log(places);
 
-const list = document.querySelector('.gallery__list');
-list.innerHTML = places;
+initialCards.forEach((place) => {
+  const initialCard = createCard(place.name, place.link);
+  appendCard(initialCard);
+});
 
-const likeButton = document.querySelectorAll('.place__like-button');
-
-for (let i = 0; i < likeButton.length; i++) {
-  likeButton[i].addEventListener('click', (evt) => {
-    console.log(evt);
-    evt.currentTarget.firstElementChild.classList.toggle('place__icon_active');
-  });
-}
+// likeButtons.forEach(function (btn) {
+//   btn.addEventListener('click', (evt) => {
+//     evt.currentTarget.firstElementChild.classList.toggle('place__icon_active');
+//   });
+// });

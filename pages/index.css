@@ -26,6 +26,7 @@
 @import url(../blocks/gallery/__list/gallery__list.css);
 
 @import url(../blocks/place/place.css);
+@import url(../blocks/place/__delete-button/place__delete-button.css);
 @import url(../blocks/place/__image/place__image.css);
 @import url(../blocks/place/__content/place__content.css);
 @import url(../blocks/place/__title/place__title.css);

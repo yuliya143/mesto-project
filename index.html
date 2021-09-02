@@ -42,6 +42,12 @@
           d="M32 28.8L19.2 16 32 3.2 28.8 0 16 12.8 3.2 0 0 3.2 12.8 16 0 28.8 3.2 32 16 19.2 28.8 32l3.2-3.2z"
         />
       </symbol>
+      <symbol viewBox="0 0 18 20" id="trash">
+        <path
+          fill="#fff"
+          d="M2.46 18.14c.06.67.6 1.16 1.28 1.16h10.52c.67 0 1.22-.5 1.28-1.16L16.72 5.8H1.28l1.18 12.35zM16.72 1.93h-5.14v-.65C11.58.57 11.01 0 10.3 0H7.72c-.71 0-1.28.57-1.28 1.28v.65H1.28C.57 1.93 0 2.5 0 3.21c0 .71.57 1.28 1.28 1.28h15.44c.71 0 1.28-.57 1.28-1.28 0-.71-.57-1.28-1.28-1.28z"
+        />
+      </symbol>
     </svg>
 
     <div class="page">
@@ -62,7 +68,7 @@
               <div class="profile__info">
                 <div class="profile__info-container">
                   <h1 class="profile__name">Жак-Ив Кусто</h1>
-                  <button type="button" class="profile__edit-button button">
+                  <button type="button" class="profile__edit-button button" data-popup="profile">
                     <svg fill="none" class="profile__edit-icon">
                       <use xlink:href="#pencil" />
                     </svg>
@@ -71,7 +77,7 @@
                 <p class="profile__profession">Исследователь океана</p>
               </div>
             </div>
-            <button type="button" class="profile__button button">
+            <button type="button" class="profile__button button" data-popup="place">
               <svg class="profile__button-icon" fill="none">
                 <use xlink:href="#plus" />
               </svg>
@@ -79,121 +85,42 @@
           </section>
 
           <section class="gallery">
-            <ul class="gallery__list">
-              <li class="place">
-                <img
-                  srcset="./images/photo-karachaevsk.webp, ./images/photo-karachaevsk@2x.webp 2x"
-                  src="./images/photo-karachaevsk.jpg"
-                  alt="Старинная кирпичная церковь"
-                  class="place__image"
-                />
-                <div class="place__content">
-                  <h2 class="place__title">Карачаево-Черкессия</h2>
-                  <button type="button" class="place__like-button button">
-                    <svg class="place__icon place__icon_active" fill="currentColor">
-                      <use xlink:href="#heart" />
-                    </svg>
-                  </button>
-                </div>
-              </li>
-              <li class="place">
-                <img
-                  srcset="./images/photo-gora-elbrus.webp, ./images/photo-gora-elbrus@2x.webp 2x"
-                  src="./images/photo-gora-elbrus.jpg"
-                  alt="Гора Эльбрус на закате"
-                  class="place__image"
-                />
-                <div class="place__content">
-                  <h2 class="place__title">Гора Эльбрус</h2>
-                  <button type="button" class="place__like-button button">
-                    <svg class="place__icon" fill="currentColor">
-                      <use xlink:href="#heart" />
-                    </svg>
-                  </button>
-                </div>
-              </li>
-              <li class="place">
-                <img
-                  srcset="./images/photo-dombai.webp, ./images/photo-dombai@2x.webp 2x"
-                  src="./images/photo-dombai.jpg"
-                  alt="Заснеженный горный пик на фоне оесеннего лесного массива"
-                  class="place__image"
-                />
-                <div class="place__content">
-                  <h2 class="place__title">Домбай</h2>
-                  <button type="button" class="place__like-button button">
-                    <svg class="place__icon" fill="currentColor">
-                      <use xlink:href="#heart" />
-                    </svg>
-                  </button>
-                </div>
-              </li>
-              <li class="place">
-                <img
-                  srcset="./images/photo-gora-elbrus.webp, ./images/photo-gora-elbrus@2x.webp 2x"
-                  src="./images/photo-gora-elbrus.jpg"
-                  alt="Гора Эльбрус на закате"
-                  class="place__image"
-                />
-                <div class="place__content">
-                  <h2 class="place__title">Гора Эльбрус</h2>
-                  <button type="button" class="place__like-button button">
-                    <svg class="place__icon" fill="currentColor">
-                      <use xlink:href="#heart" />
-                    </svg>
-                  </button>
-                </div>
-              </li>
-              <li class="place">
-                <img
-                  srcset="./images/photo-dombai.webp, ./images/photo-dombai@2x.webp 2x"
-                  src="./images/photo-dombai.jpg"
-                  alt="Заснеженный горный пик на фоне оесеннего лесного массива"
-                  class="place__image"
-                />
-                <div class="place__content">
-                  <h2 class="place__title">Домбай</h2>
-                  <button type="button" class="place__like-button button">
-                    <svg class="place__icon" fill="currentColor">
-                      <use xlink:href="#heart" />
-                    </svg>
-                  </button>
-                </div>
-              </li>
-              <li class="place">
-                <img
-                  srcset="./images/photo-karachaevsk.webp, ./images/photo-karachaevsk@2x.webp 2x"
-                  src="./images/photo-karachaevsk.jpg"
-                  alt="Старинная кирпичная церковь"
-                  class="place__image"
-                />
-                <div class="place__content">
-                  <h2 class="place__title">Карачаевск</h2>
-                  <button type="button" class="place__like-button button">
-                    <svg class="place__icon" fill="currentColor">
-                      <use xlink:href="#heart" />
-                    </svg>
-                  </button>
-                </div>
-              </li>
-            </ul>
+            <ul class="gallery__list"></ul>
           </section>
         </main>
+
+        <template id="place-template">
+          <li class="place">
+            <button type="button" class="place__delete-button button">
+              <svg class="place__icon" fill="currentColor">
+                <use xlink:href="#trash" />
+              </svg>
+            </button>
+            <img src="" alt="" class="place__image" />
+            <div class="place__content">
+              <h2 class="place__title"></h2>
+              <button type="button" class="place__like-button button">
+                <svg class="place__icon" fill="currentColor">
+                  <use xlink:href="#heart" />
+                </svg>
+              </button>
+            </div>
+          </li>
+        </template>
 
         <footer class="footer">
           <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
         </footer>
 
-        <div class="popup">
+        <div class="popup popup_type_profile">
           <div class="popup__container">
             <button type="button" class="popup__close-button button">
               <svg class="popup__close-icon" fill="none">
                 <use xlink:href="#close" />
               </svg>
             </button>
-            <form class="form" name="user">
+            <form class="form form_type_profile" name="user">
               <h2 class="form__heading">Редактировать профиль</h2>
-
               <input
                 type="text"
                 class="form__item form__item_el_full-name"
@@ -202,7 +129,6 @@
                 placeholder="Жак-Ив Кусто"
                 required
               />
-
               <input
                 type="text"
                 class="form__item form__item_el_occupation"
@@ -211,8 +137,37 @@
                 placeholder="Исследователь океана"
                 required
               />
-
               <button type="submit" class="form__button button">Сохранить</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="popup popup_type_place">
+          <div class="popup__container">
+            <button type="button" class="popup__close-button button">
+              <svg class="popup__close-icon" fill="none">
+                <use xlink:href="#close" />
+              </svg>
+            </button>
+            <form class="form form_type_place" name="place">
+              <h2 class="form__heading">Новое место</h2>
+              <input
+                type="text"
+                class="form__item form__item_el_new_place"
+                id="new-place"
+                name="new-place"
+                placeholder="Название"
+                required
+              />
+              <input
+                type="text"
+                class="form__item form__item_el_link-image"
+                id="link-image"
+                name="link-image"
+                placeholder="Ссылка на картинку"
+                required
+              />
+              <button type="submit" class="form__button button">Создать</button>
             </form>
           </div>
         </div>
