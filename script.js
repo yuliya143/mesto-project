@@ -67,7 +67,9 @@ function submitPlaceForm(event) {
 
   if (place && image) {
     const newCard = createCard(place, image);
-    appendCard(newCard);
+    prependCard(newCard);
+    addListenersToDeleteButtons();
+    addListenersToLikeButtons();
   }
 
   event.currentTarget.closest('.popup').classList.remove('popup_opened');
@@ -102,9 +104,9 @@ const initialCards = [
   },
 ];
 
-function appendCard(placeElement) {
+function prependCard(placeElement) {
   const galleryList = document.querySelector('.gallery__list');
-  galleryList.append(placeElement);
+  galleryList.prepend(placeElement);
 }
 
 function createCard(nameValue, linkValue) {
@@ -122,11 +124,30 @@ function createCard(nameValue, linkValue) {
 
 initialCards.forEach((place) => {
   const initialCard = createCard(place.name, place.link);
-  appendCard(initialCard);
+  prependCard(initialCard);
 });
 
-// likeButtons.forEach(function (btn) {
-//   btn.addEventListener('click', (evt) => {
-//     evt.currentTarget.firstElementChild.classList.toggle('place__icon_active');
-//   });
-// });
+function addListenersToLikeButtons() {
+  const likeButtons = Array.from(document.querySelectorAll('.place__like-button'));
+  likeButtons.forEach((btn) => {
+    btn.addEventListener('click', (event) => {
+      event.currentTarget.firstElementChild.classList.toggle('place__icon_active');
+    });
+  });
+}
+
+addListenersToLikeButtons();
+
+function addListenersToDeleteButtons() {
+  const deleteButtons = Array.from(document.querySelectorAll('.place__delete-button'));
+  deleteButtons.forEach((btn) => {
+    btn.addEventListener('click', deleteCard);
+  });
+}
+
+addListenersToDeleteButtons();
+
+function deleteCard(event) {
+  const isDeleteButtonClicked = event.target.closest('.place');
+  isDeleteButtonClicked.remove();
+}
