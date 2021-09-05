@@ -3,4 +3,5 @@
   top: 0;
   right: 0;
   padding: 18px 15px;
+  z-index: 1;
 }

@@ -1,0 +1,6 @@
+.place__link {
+  position: relative;
+  display: block;
+  height: 282px;
+  overflow: hidden;
+}
