@@ -122,7 +122,6 @@ function addListenerToCard(card) {
 
     if (isPhotoClicked) {
       event.preventDefault();
-
       const link = card.querySelector('.place__link');
       const src = link.dataset.src;
       const title = link.dataset.title;
