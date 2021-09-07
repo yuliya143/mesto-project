@@ -2,6 +2,7 @@
   all: unset;
   line-height: 0;
   transition: opacity 0.2s ease;
+  cursor: pointer;
 }
 
 @media (hover: hover) and (pointer: fine) {

@@ -1,31 +1,3 @@
-// refactored
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
-  },
-];
-
 const galleryList = document.querySelector('.gallery__list');
 
 const popupPhoto = document.querySelector('.popup_type_photo');
@@ -46,15 +18,19 @@ function addListenersToProfileButtons() {
   const popupsButtons = Array.from(document.querySelectorAll('[data-popup]'));
 
   popupsButtons.forEach((btn) => {
-    btn.addEventListener('click', openPopup);
+    btn.addEventListener('click', handleOpenPopup);
   });
 }
 
-function openPopup(event) {
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
+}
+
+function handleOpenPopup(event) {
   event.preventDefault();
   const popupType = event.currentTarget.dataset.popup;
   const popup = document.querySelector(`.popup_type_${popupType}`);
-  popup.classList.add('popup_opened');
+  openPopup(popup);
 }
 
 function addCloseListenersToPopups() {
