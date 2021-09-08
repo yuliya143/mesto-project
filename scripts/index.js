@@ -28,33 +28,39 @@ function openPopup(popup) {
 
 function handleOpenPopup(event) {
   event.preventDefault();
+
   const popupType = event.currentTarget.dataset.popup;
   const popup = document.querySelector(`.popup_type_${popupType}`);
+
   openPopup(popup);
 }
 
 function addCloseListenersToPopups() {
   const popups = Array.from(document.querySelectorAll('.popup'));
   popups.forEach((popup) => {
-    popup.addEventListener('click', closePopup);
+    popup.addEventListener('click', handleClosePopup);
   });
 }
 
-function closePopup(event) {
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+}
+
+function handleClosePopup(event) {
   const popup = event.currentTarget;
   const isPopupCloseButtonClicked = event.target.closest('.popup__close-button');
   const isOverlayClicked = event.target.classList.contains('popup');
 
   if (isPopupCloseButtonClicked || isOverlayClicked) {
-    popup.classList.remove('popup_opened');
+    closePopup(popup);
   }
 }
 
 function createInitCards() {
   initialCards.forEach((place) => {
     const card = createCard(place.name, place.link);
+    addListenersToCard(card);
     prependCard(card);
-    addListenerToCard(card);
   });
 }
 
@@ -79,40 +85,45 @@ function prependCard(placeElement) {
   galleryList.prepend(placeElement);
 }
 
-function addListenerToCard(card) {
-  card.addEventListener('click', (event) => {
-    const card = event.currentTarget;
-    const isLikeButtonClicked = event.target.closest('.place__like-button');
-    const isDeleteButtonClicked = event.target.closest('.place__delete-button');
-    const isPhotoClicked = event.target.closest('.place__link');
+function addListenersToCard(card) {
+  const likeButton = card.querySelector('.place__like-button');
+  likeButton.addEventListener('click', handleLikeButtonClicked);
 
-    if (isLikeButtonClicked) {
-      const likeButtonIcon = card.querySelector('.place__icon_type_like');
+  const deleteButton = card.querySelector('.place__delete-button');
+  deleteButton.addEventListener('click', handleDeleteButtonClicked);
 
-      return likeButtonIcon.classList.toggle('place__icon_active');
-    }
-
-    if (isDeleteButtonClicked) {
-      return card.remove();
-    }
-
-    if (isPhotoClicked) {
-      event.preventDefault();
-      const link = card.querySelector('.place__link');
-      const src = link.dataset.src;
-      const title = link.dataset.title;
-
-      showPopupPhoto(src, title);
-    }
-  });
+  const photo = card.querySelector('.place__link');
+  photo.addEventListener('click', handlePhotoClicked);
 }
 
-function showPopupPhoto(src, title) {
+function handleLikeButtonClicked(event) {
+  const btn = event.currentTarget;
+  const likeButtonIcon = btn.querySelector('.place__icon_type_like');
+
+  return likeButtonIcon.classList.toggle('place__icon_active');
+}
+
+function handlePhotoClicked(event) {
+  event.preventDefault();
+
+  const link = event.currentTarget;
+  const src = link.dataset.src;
+  const title = link.dataset.title;
+
+  setPhotoData(src, title);
+  openPopup(popupPhoto);
+}
+
+function handleDeleteButtonClicked(event) {
+  const card = event.currentTarget.closest('.place');
+
+  return card.remove();
+}
+
+function setPhotoData(src, title) {
   popupPhotoImage.setAttribute('src', src);
   popupPhotoImage.setAttribute('alt', title);
   popupPhotoCaption.textContent = title;
-
-  popupPhoto.classList.add('popup_opened');
 }
 
 function addListenersToForms() {
@@ -123,6 +134,7 @@ function addListenersToForms() {
 function submitProfileForm(event) {
   event.preventDefault();
 
+  const popup = event.currentTarget.closest('.popup');
   const nameText = nameInput.value.trim();
   const jobText = jobInput.value.trim();
 
@@ -131,22 +143,26 @@ function submitProfileForm(event) {
     jobProfile.textContent = jobText;
   }
 
-  event.currentTarget.closest('.popup').classList.remove('popup_opened');
+  closePopup(popup);
+
+  nameInput.value = '';
+  jobInput.value = '';
 }
 
 function submitPlaceForm(event) {
   event.preventDefault();
 
+  const popup = event.currentTarget.closest('.popup');
   const place = placeNameInput.value.trim();
   const image = placeImageInput.value.trim();
 
   if (place && image) {
     const newCard = createCard(place, image);
+    addListenersToCard(newCard);
     prependCard(newCard);
-    addListenerToCard(newCard);
   }
 
-  event.currentTarget.closest('.popup').classList.remove('popup_opened');
+  closePopup(popup);
 
   placeNameInput.value = '';
   placeImageInput.value = '';
