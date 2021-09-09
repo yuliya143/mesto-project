@@ -1,6 +1,12 @@
 const galleryList = document.querySelector('.gallery__list');
 
+const editButton = document.querySelector('.profile__edit-button');
+const plusButton = document.querySelector('.profile__button');
+
+const popupEdit = document.querySelector('.popup_type_profile');
+const popupPlace = document.querySelector('.popup_type_place');
 const popupPhoto = document.querySelector('.popup_type_photo');
+
 const popupPhotoImage = document.querySelector('.popup__image');
 const popupPhotoCaption = document.querySelector('.popup__caption');
 
@@ -15,24 +21,21 @@ const placeNameInput = document.querySelector('.form__item_el_new_place');
 const placeImageInput = document.querySelector('.form__item_el_link-image');
 
 function addListenersToProfileButtons() {
-  const popupsButtons = Array.from(document.querySelectorAll('[data-popup]'));
-
-  popupsButtons.forEach((btn) => {
-    btn.addEventListener('click', handleOpenPopup);
+  editButton.addEventListener('click', () => {
+    setValuesToFormProfile();
+    openPopup(popupEdit);
   });
+
+  plusButton.addEventListener('click', () => openPopup(popupPlace));
+}
+
+function setValuesToFormProfile() {
+  nameInput.value = nameProfile.textContent;
+  jobInput.value = jobProfile.textContent;
 }
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-}
-
-function handleOpenPopup(event) {
-  event.preventDefault();
-
-  const popupType = event.currentTarget.dataset.popup;
-  const popup = document.querySelector(`.popup_type_${popupType}`);
-
-  openPopup(popup);
 }
 
 function addCloseListenersToPopups() {
@@ -135,7 +138,6 @@ function addListenersToForms() {
 function submitProfileForm(event) {
   event.preventDefault();
 
-  const popup = event.currentTarget.closest('.popup');
   const nameText = nameInput.value.trim();
   const jobText = jobInput.value.trim();
 
@@ -144,7 +146,7 @@ function submitProfileForm(event) {
     jobProfile.textContent = jobText;
   }
 
-  closePopup(popup);
+  closePopup(popupProfile);
 
   nameInput.value = '';
   jobInput.value = '';
@@ -153,7 +155,6 @@ function submitProfileForm(event) {
 function submitPlaceForm(event) {
   event.preventDefault();
 
-  const popup = event.currentTarget.closest('.popup');
   const place = placeNameInput.value.trim();
   const image = placeImageInput.value.trim();
 
@@ -162,7 +163,7 @@ function submitPlaceForm(event) {
     prependCard(newCard);
   }
 
-  closePopup(popup);
+  closePopup(popupPlace);
 
   placeNameInput.value = '';
   placeImageInput.value = '';
