@@ -59,7 +59,6 @@ function handleClosePopup(event) {
 function createInitCards() {
   initialCards.forEach((place) => {
     const card = createCard(place.name, place.link);
-    addListenersToCard(card);
     prependCard(card);
   });
 }
@@ -77,6 +76,8 @@ function createCard(nameValue, linkValue) {
   title.textContent = nameValue;
   image.setAttribute('src', linkValue);
   image.setAttribute('alt', nameValue);
+
+  addListenersToCard(placeElement);
 
   return placeElement;
 }
@@ -158,7 +159,6 @@ function submitPlaceForm(event) {
 
   if (place && image) {
     const newCard = createCard(place, image);
-    addListenersToCard(newCard);
     prependCard(newCard);
   }
 
