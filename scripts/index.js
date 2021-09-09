@@ -146,7 +146,7 @@ function submitProfileForm(event) {
     jobProfile.textContent = jobText;
   }
 
-  closePopup(popupProfile);
+  closePopup(popupEdit);
 
   nameInput.value = '';
   jobInput.value = '';
