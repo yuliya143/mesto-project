@@ -48,6 +48,12 @@
           d="M2.46 18.14c.06.67.6 1.16 1.28 1.16h10.52c.67 0 1.22-.5 1.28-1.16L16.72 5.8H1.28l1.18 12.35zM16.72 1.93h-5.14v-.65C11.58.57 11.01 0 10.3 0H7.72c-.71 0-1.28.57-1.28 1.28v.65H1.28C.57 1.93 0 2.5 0 3.21c0 .71.57 1.28 1.28 1.28h15.44c.71 0 1.28-.57 1.28-1.28 0-.71-.57-1.28-1.28-1.28z"
         />
       </symbol>
+      <symbol viewBox="0 0 26 26" id="avatar">
+        <path
+          d="M26 3.45351L6.76981 22.7932L3.33585 19.2903L22.517 0L26 3.45351ZM0 26L5.10189 24.4706L1.52075 21.0171L0 26Z"
+          fill="white"
+        />
+      </symbol>
     </svg>
 
     <div class="page">
@@ -59,12 +65,19 @@
         <main class="content">
           <section class="profile">
             <div class="profile__content">
-              <img
-                srcset="./images/photo-profile.webp, ./images/photo-profile@2x.webp 2x"
-                src="./images/photo-profile.jpg"
-                alt="Фото профиля"
-                class="profile__photo"
-              />
+              <div class="profile__avatar-container">
+                <button type="button" class="profile__avatar-button">
+                  <svg class="profile__avatar-icon" fill="currentColor">
+                    <use xlink:href="#avatar" />
+                  </svg>
+                </button>
+                <img
+                  srcset="./images/photo-profile.webp, ./images/photo-profile@2x.webp 2x"
+                  src="./images/photo-profile.jpg"
+                  alt="Фото профиля"
+                  class="profile__photo"
+                />
+              </div>
               <div class="profile__info">
                 <div class="profile__info-container">
                   <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -185,6 +198,42 @@
               <img src="" alt="" class="popup__image" />
               <figcaption class="popup__caption"></figcaption>
             </figure>
+          </div>
+        </div>
+
+        <div class="popup popup_type_avatar">
+          <div class="popup__container">
+            <button type="button" class="popup__close-button button">
+              <svg class="popup__close-icon" fill="none">
+                <use xlink:href="#close" />
+              </svg>
+            </button>
+            <form class="form form_type_avatar" name="user-avatar">
+              <h2 class="form__heading">Обновить аватар</h2>
+              <input
+                type="url"
+                class="form__item form__item_el_avatar"
+                id="avatar"
+                name="avatar"
+                placeholder="https://somewebsite.com/someimage.jpg"
+                required
+              />
+              <button type="submit" class="form__button button">Сохранить</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="popup popup_type_confirmation">
+          <div class="popup__container">
+            <div class="popup__content">
+              <button type="button" class="popup__close-button button">
+                <svg class="popup__close-icon" fill="none">
+                  <use xlink:href="#close" />
+                </svg>
+              </button>
+              <h2 class="form__heading">Вы уверены?</h2>
+              <button type="submit" class="form__button button">Да</button>
+            </div>
           </div>
         </div>
       </div>

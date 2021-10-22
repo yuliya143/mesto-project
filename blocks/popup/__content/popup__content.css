@@ -1,4 +1,4 @@
-.form {
+.popup__content {
   font-family: 'Inter', 'Arial', sans-serif;
   color: #000;
   background: #fff;
@@ -11,7 +11,7 @@
 }
 
 @media (min-width: 768px) {
-  .form {
+  .popup__content {
     padding: 35px;
   }
 }

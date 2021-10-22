@@ -3,4 +3,6 @@
   padding: 40px 20px;
   text-align: right;
   position: relative;
+  max-width: 430px;
+  width: 100%;
 }
