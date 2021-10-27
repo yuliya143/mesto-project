@@ -1,4 +1,4 @@
-.form__item {
+.form__input {
   border: 0;
   width: 100%;
   box-sizing: border-box;
@@ -9,7 +9,7 @@
   padding: 13px 0;
 }
 
-.form__item::placeholder {
+.form__input::placeholder {
   color: #000;
   opacity: 0.5;
 }

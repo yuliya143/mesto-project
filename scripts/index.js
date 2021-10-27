@@ -3,6 +3,7 @@ const galleryList = document.querySelector('.gallery__list');
 const editButton = document.querySelector('.profile__edit-button');
 const plusButton = document.querySelector('.profile__button');
 const avatarButton = document.querySelector('.profile__avatar-button');
+const confirmButton = document.querySelector('.popup__button');
 
 const popupEdit = document.querySelector('.popup_type_profile');
 const popupPlace = document.querySelector('.popup_type_place');
@@ -14,14 +15,23 @@ const popupPhotoImage = document.querySelector('.popup__image');
 const popupPhotoCaption = document.querySelector('.popup__caption');
 
 const formProfile = document.querySelector('.form_type_profile');
-const nameInput = document.querySelector('.form__item_el_full-name');
-const jobInput = document.querySelector('.form__item_el_occupation');
+const nameInput = document.querySelector('.form__input_el_full-name');
+const jobInput = document.querySelector('.form__input_el_occupation');
 const nameProfile = document.querySelector('.profile__name');
 const jobProfile = document.querySelector('.profile__profession');
+const submitProfileButton = formProfile.querySelector('.form__button');
 
 const formPlace = document.querySelector('.form_type_place');
-const placeNameInput = document.querySelector('.form__item_el_new_place');
-const placeImageInput = document.querySelector('.form__item_el_link-image');
+const placeNameInput = document.querySelector('.form__input_el_new-place');
+const placeImageInput = document.querySelector('.form__input_el_link-image');
+const submitPlaceButton = formPlace.querySelector('.form__button');
+
+const formAvatar = document.querySelector('.form_type_avatar');
+const avatarPhotoInput = document.querySelector('.form__input_el_avatar');
+const profilePhoto = document.querySelector('.profile__photo');
+const submitAvatarButton = formAvatar.querySelector('.form__button');
+
+let cardForRemoving;
 
 function addListenersToProfileButtons() {
   editButton.addEventListener('click', () => {
@@ -37,6 +47,11 @@ function addListenersToProfileButtons() {
 function setValuesToFormProfile() {
   nameInput.value = nameProfile.textContent;
   jobInput.value = jobProfile.textContent;
+
+  checkInputValidity(nameInput);
+  checkInputValidity(jobInput);
+
+  togglebuttonState(submitProfileButton, [nameInput, jobInput]);
 }
 
 function openPopup(popup) {
@@ -112,7 +127,10 @@ function addListenersToCard(card) {
   likeButton.addEventListener('click', handleLikeButtonClicked);
 
   const deleteButton = card.querySelector('.place__delete-button');
-  deleteButton.addEventListener('click', () => openPopup(popupCardRemove));
+  deleteButton.addEventListener('click', (e) => {
+    cardForRemoving = e.currentTarget.closest('.place');
+    openPopup(popupCardRemove);
+  });
 
   const photo = card.querySelector('.place__link');
   photo.addEventListener('click', handlePhotoClicked);
@@ -136,11 +154,6 @@ function handlePhotoClicked(e) {
   openPopup(popupPhoto);
 }
 
-// function handleDeleteButtonClicked(e) {
-//   const card = e.currentTarget.closest('.place');
-//   return card.remove();
-// }
-
 function setPhotoData(src, title) {
   popupPhotoImage.setAttribute('src', src);
   popupPhotoImage.setAttribute('alt', title);
@@ -150,6 +163,7 @@ function setPhotoData(src, title) {
 function addListenersToForms() {
   formProfile.addEventListener('submit', submitProfileForm);
   formPlace.addEventListener('submit', submitPlaceForm);
+  formAvatar.addEventListener('submit', submitAvatarForm);
 }
 
 function submitProfileForm(event) {
@@ -165,8 +179,7 @@ function submitProfileForm(event) {
 
   closePopup(popupEdit);
 
-  nameInput.value = '';
-  jobInput.value = '';
+  formProfile.reset();
 }
 
 function submitPlaceForm(event) {
@@ -182,12 +195,39 @@ function submitPlaceForm(event) {
 
   closePopup(popupPlace);
 
-  placeNameInput.value = '';
-  placeImageInput.value = '';
+  formPlace.reset();
+  submitPlaceButton.disabled = true;
+}
+
+function submitAvatarForm(e) {
+  e.preventDefault();
+  console.log(avatarPhotoInput.value);
+
+  const src = avatarPhotoInput.value;
+
+  profilePhoto.setAttribute('src', src);
+
+  closePopup(popupAvatar);
+
+  formAvatar.reset();
+  submitAvatarButton.disabled = true;
+}
+
+function addListenerToConfirmButton() {
+  confirmButton.addEventListener('click', handleConfirmButtonClicked);
+}
+
+function handleConfirmButtonClicked(e) {
+  cardForRemoving.remove();
+  closePopup(popupCardRemove);
+  cardForRemoving = null;
 }
 
 addListenersToProfileButtons();
 addCloseListenersToPopups();
 addKeyListenerToDocument();
 addListenersToForms();
+addListenerToConfirmButton();
 createInitCards();
+
+enableValidation();
