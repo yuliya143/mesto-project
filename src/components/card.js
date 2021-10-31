@@ -1,10 +1,44 @@
 import { handlePhotoClicked } from './modal.js';
 import { openPopup } from './utils.js';
 
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
+  },
+];
+
 const galleryList = document.querySelector('.gallery__list');
 const popupCardRemove = document.querySelector('.popup_type_confirmation');
 
 let cardForRemoving;
+
+function createInitCards() {
+  initialCards.forEach((place) => {
+    const card = createCard(place.name, place.link);
+    prependCard(card);
+  });
+}
 
 function createCard(nameValue, linkValue) {
   const placeTemplate = document.querySelector('#place-template').content;
@@ -63,4 +97,4 @@ function handleLikeButtonClicked(event) {
   return likeButtonIcon.classList.toggle('place__icon_active');
 }
 
-export { createCard, prependCard, removeCard };
+export { createInitCards, createCard, prependCard, removeCard };

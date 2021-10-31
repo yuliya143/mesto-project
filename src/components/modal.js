@@ -57,20 +57,6 @@ function addCloseListenersToPopups() {
   });
 }
 
-function addKeyListenerToDocument() {
-  document.addEventListener('keydown', handleKeyClosePopup);
-}
-
-function handleKeyClosePopup(e) {
-  const popups = Array.from(document.querySelectorAll('.popup'));
-
-  popups.forEach((popup) => {
-    if (e.code === 'Escape') {
-      handleClosePopupAndResetForm(popup);
-    }
-  });
-}
-
 function handleClosePopup(e) {
   const popup = e.currentTarget;
   const isPopupCloseButtonClicked = e.target.closest('.popup__close-button');
@@ -164,8 +150,8 @@ function setPhotoData(src, title) {
 export {
   addListenersToProfileButtons,
   addCloseListenersToPopups,
-  addKeyListenerToDocument,
   addListenersToForms,
   addListenerToConfirmButton,
   handlePhotoClicked,
+  handleClosePopupAndResetForm,
 };

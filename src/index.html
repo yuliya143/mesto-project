@@ -8,7 +8,6 @@
     <meta name="description" content="Путешествия по планете" />
     <meta name="keywords" content="Путешествия, достопримечательность, фотографии" />
     <meta name="author" content="Юлия Заболотная" />
-    <link rel="stylesheet" href="pages/index.css" />
   </head>
   <body>
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
@@ -21,7 +20,7 @@
           stroke-width="1.5"
         />
       </symbol>
-      <symbol viewBox="0 0 24 24" id="pencil">
+      <symbol viewBox="0 0 24 24" id="bordered-pencil">
         <g>
           <path stroke="#fff" d="M.5.5h23v23H.5z" />
           <path
@@ -48,7 +47,7 @@
           d="M2.46 18.14c.06.67.6 1.16 1.28 1.16h10.52c.67 0 1.22-.5 1.28-1.16L16.72 5.8H1.28l1.18 12.35zM16.72 1.93h-5.14v-.65C11.58.57 11.01 0 10.3 0H7.72c-.71 0-1.28.57-1.28 1.28v.65H1.28C.57 1.93 0 2.5 0 3.21c0 .71.57 1.28 1.28 1.28h15.44c.71 0 1.28-.57 1.28-1.28 0-.71-.57-1.28-1.28-1.28z"
         />
       </symbol>
-      <symbol viewBox="0 0 26 26" id="avatar">
+      <symbol viewBox="0 0 26 26" id="pencil">
         <path
           d="M26 3.45351L6.76981 22.7932L3.33585 19.2903L22.517 0L26 3.45351ZM0 26L5.10189 24.4706L1.52075 21.0171L0 26Z"
           fill="white"
@@ -59,7 +58,11 @@
     <div class="page">
       <div class="page__container">
         <header class="header">
-          <img src="./images/header-logo.svg" alt="Логотип Место" class="header__logo" />
+          <img
+            src="<%=require('./images/header-logo.svg')%>"
+            alt="Логотип Место"
+            class="header__logo"
+          />
         </header>
 
         <main class="content">
@@ -68,17 +71,21 @@
               <div class="profile__avatar-container">
                 <button type="button" class="profile__avatar-button">
                   <svg class="profile__avatar-icon" fill="currentColor">
-                    <use xlink:href="#avatar" />
+                    <use xlink:href="#pencil" />
                   </svg>
                 </button>
-                <img src="./images/photo-profile.jpg" alt="Фото профиля" class="profile__photo" />
+                <img
+                  src="<%=require('./images/photo-profile.jpg')%>"
+                  alt="Фото профиля"
+                  class="profile__photo"
+                />
               </div>
               <div class="profile__info">
                 <div class="profile__info-container">
                   <h1 class="profile__name">Жак-Ив Кусто</h1>
                   <button type="button" class="profile__edit-button button">
                     <svg fill="none" class="profile__edit-icon">
-                      <use xlink:href="#pencil" />
+                      <use xlink:href="#bordered-pencil" />
                     </svg>
                   </button>
                 </div>
@@ -200,7 +207,7 @@
               </svg>
             </button>
             <figure class="popup__figure">
-              <img src="" alt="" class="popup__image" />
+              <img src="./" alt="" class="popup__image" />
               <figcaption class="popup__caption"></figcaption>
             </figure>
           </div>
@@ -244,7 +251,5 @@
         </div>
       </div>
     </div>
-    <script src="./scripts/data.js"></script>
-    <script type="module" src="./pages/index.js"></script>
   </body>
 </html>
