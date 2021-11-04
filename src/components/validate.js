@@ -35,7 +35,7 @@ const handleFormValidity = (input, submitButton, inputList, config) => {
   toggleButtonState(submitButton, inputList);
 };
 
-const setListenersToForms = (form, config) => {
+const setListenersToForm = (form, config) => {
   form.addEventListener('submit', (e) => {
     e.preventDefault();
   });
@@ -50,13 +50,9 @@ const setListenersToForms = (form, config) => {
   });
 
   form.addEventListener('reset', () => {
-    inputList.forEach((input) => {
-      hideInputError(input, config);
-
-      input.value = '';
+    setTimeout(() => {
+      toggleButtonState(submitButton, inputList);
     });
-
-    toggleButtonState(submitButton, inputList);
   });
 
   toggleButtonState(submitButton, inputList);
@@ -66,7 +62,7 @@ const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
 
   formList.forEach((form) => {
-    setListenersToForms(form, config);
+    setListenersToForm(form, config);
   });
 };
 

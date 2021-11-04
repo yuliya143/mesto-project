@@ -63,17 +63,7 @@ function handleClosePopup(e) {
   const isOverlayClicked = e.target.classList.contains('popup');
 
   if (isPopupCloseButtonClicked || isOverlayClicked) {
-    handleClosePopupAndResetForm(popup);
-  }
-}
-
-function handleClosePopupAndResetForm(popup) {
-  const form = popup.querySelector('.form');
-
-  closePopup(popup);
-
-  if (form) {
-    form.reset();
+    closePopup(popup);
   }
 }
 
@@ -94,7 +84,7 @@ function submitProfileForm(e) {
     jobProfile.textContent = jobText;
   }
 
-  handleClosePopupAndResetForm(popupEdit);
+  closePopup(popupEdit);
 }
 
 function submitPlaceForm(event) {
@@ -108,7 +98,8 @@ function submitPlaceForm(event) {
     prependCard(newCard);
   }
 
-  handleClosePopupAndResetForm(popupPlace);
+  closePopup(popupPlace);
+  formPlace.reset();
 }
 
 function submitAvatarForm(e) {
@@ -118,7 +109,8 @@ function submitAvatarForm(e) {
 
   profilePhoto.setAttribute('src', src);
 
-  handleClosePopupAndResetForm(popupAvatar);
+  closePopup(popupAvatar);
+  formAvatar.reset();
 }
 
 function handleConfirmationClose() {
@@ -133,9 +125,9 @@ function addListenerToConfirmButton() {
 function handlePhotoClicked(e) {
   e.preventDefault();
 
-  const link = e.currentTarget;
-  const src = link.dataset.src;
-  const title = link.dataset.title;
+  const image = e.target;
+  const src = image.src;
+  const title = image.alt;
 
   setPhotoData(src, title);
   openPopup(popupPhoto);
@@ -153,5 +145,4 @@ export {
   addListenersToForms,
   addListenerToConfirmButton,
   handlePhotoClicked,
-  handleClosePopupAndResetForm,
 };

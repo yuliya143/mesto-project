@@ -1,5 +1,3 @@
-import { handleClosePopupAndResetForm } from './modal.js';
-
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   addKeyListenerToDocument();
@@ -23,7 +21,7 @@ function handleKeyClosePopup(e) {
 
   popups.forEach((popup) => {
     if (e.code === 'Escape') {
-      handleClosePopupAndResetForm(popup);
+      closePopup(popup);
     }
   });
 }

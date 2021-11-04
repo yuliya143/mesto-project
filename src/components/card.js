@@ -45,34 +45,28 @@ function createCard(nameValue, linkValue) {
   const placeElement = placeTemplate.querySelector('.place').cloneNode(true);
   const title = placeElement.querySelector('.place__title');
   const image = placeElement.querySelector('.place__image');
-  const link = placeElement.querySelector('.place__link');
 
-  link.dataset.title = nameValue;
-  link.dataset.src = linkValue;
   title.textContent = nameValue;
-
   image.setAttribute('src', linkValue);
   image.setAttribute('alt', nameValue);
 
-  removeListenerIfImageNotLoad(link, linkValue);
+  removeListenerIfImageNotLoad(image);
   addListenersToCard(placeElement);
 
   return placeElement;
 }
 
-function removeListenerIfImageNotLoad(link, linkValue) {
-  const photo = new Image();
-  photo.addEventListener('error', () => link.removeEventListener('click', handlePhotoClicked));
-  photo.src = linkValue;
+function removeListenerIfImageNotLoad(image) {
+  image.addEventListener('error', () => image.removeEventListener('click', handlePhotoClicked));
 }
 
 function addListenersToCard(card) {
   const likeButton = card.querySelector('.place__like-button');
   const deleteButton = card.querySelector('.place__delete-button');
-  const photo = card.querySelector('.place__link');
+  const image = card.querySelector('.place__image');
 
   likeButton.addEventListener('click', handleLikeButtonClicked);
-  photo.addEventListener('click', handlePhotoClicked);
+  image.addEventListener('click', handlePhotoClicked);
   deleteButton.addEventListener('click', handleDeleteButtonClicked);
 }
 
