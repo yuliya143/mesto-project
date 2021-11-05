@@ -17,13 +17,11 @@ function removeKeyListenerFromDocument() {
 }
 
 function handleKeyClosePopup(e) {
-  const popups = Array.from(document.querySelectorAll('.popup'));
+  const openedPopup = document.querySelector('.popup_opened');
 
-  popups.forEach((popup) => {
-    if (e.code === 'Escape') {
-      closePopup(popup);
-    }
-  });
+  if (e.code === 'Escape') {
+    closePopup(openedPopup);
+  }
 }
 
 export { openPopup, closePopup };
