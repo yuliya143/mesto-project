@@ -24,13 +24,22 @@ const getUserData = () => {
 };
 
 const updateUserData = (user) => {
-  console.log(user);
   return fetch(setUrl('users/me'), {
     method: 'PATCH',
     ...config,
     body: JSON.stringify({
       name: user.name,
       about: user.about,
+    }),
+  }).then(checkIfResOk);
+};
+
+const updateUserAvatar = (user) => {
+  return fetch(setUrl('users/me/avatar'), {
+    method: 'PATCH',
+    ...config,
+    body: JSON.stringify({
+      avatar: user.avatar,
     }),
   }).then(checkIfResOk);
 };
@@ -46,4 +55,34 @@ const addNewCard = (place) => {
   }).then(checkIfResOk);
 };
 
-export { getInitialCards, getUserData, updateUserData, addNewCard };
+const deleteCard = (cardId) => {
+  return fetch(setUrl(`cards/${cardId}`), {
+    method: 'DELETE',
+    ...config,
+  }).then(checkIfResOk);
+};
+
+const addLike = (cardId) => {
+  return fetch(setUrl(`cards/likes/${cardId}`), {
+    method: 'PUT',
+    ...config,
+  }).then(checkIfResOk);
+};
+
+const removeLike = (cardId) => {
+  return fetch(setUrl(`cards/likes/${cardId}`), {
+    method: 'DELETE',
+    ...config,
+  }).then(checkIfResOk);
+};
+
+export {
+  getInitialCards,
+  getUserData,
+  updateUserData,
+  updateUserAvatar,
+  addNewCard,
+  deleteCard,
+  addLike,
+  removeLike,
+};

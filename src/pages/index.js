@@ -12,14 +12,19 @@ import {
 } from '../components/modal.js';
 
 import './index.css';
+import { getUserData } from '../components/api.js';
 
 addListenersToProfileButtons();
 addCloseListenersToPopups();
 addListenersToForms();
 addListenerToConfirmButton();
 
-setInitValuesToProfile();
-getAndCreateInitCards();
+getUserData()
+  .then((user) => {
+    setInitValuesToProfile(user);
+    getAndCreateInitCards(user._id);
+  })
+  .catch();
 
 enableValidation({
   formSelector: '.form',
