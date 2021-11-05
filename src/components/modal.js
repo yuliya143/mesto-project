@@ -1,3 +1,4 @@
+import { getUserData, updateUserData, addNewCard } from './api.js';
 import { openPopup, closePopup } from './utils.js';
 import { removeCard, createCard, prependCard } from './card.js';
 
@@ -43,6 +44,16 @@ function addListenersToProfileButtons() {
   avatarButton.addEventListener('click', () => openPopup(popupAvatar));
 }
 
+function setInitValuesToProfile() {
+  getUserData()
+    .then((user) => {
+      nameProfile.textContent = user.name;
+      jobProfile.textContent = user.about;
+      profilePhoto.src = user.avatar;
+    })
+    .catch(console.log);
+}
+
 function setValuesToFormProfile() {
   nameInput.value = nameProfile.textContent;
   jobInput.value = jobProfile.textContent;
@@ -76,30 +87,39 @@ function addListenersToForms() {
 function submitProfileForm(e) {
   e.preventDefault();
 
-  const nameText = nameInput.value.trim();
-  const jobText = jobInput.value.trim();
+  const name = nameInput.value.trim();
+  const about = jobInput.value.trim();
 
-  if (nameText && jobText) {
-    nameProfile.textContent = nameText;
-    jobProfile.textContent = jobText;
-  }
+  updateUserData({
+    name,
+    about,
+  })
+    .then(() => {
+      nameProfile.textContent = name;
+      jobProfile.textContent = about;
+    })
+    .catch(console.log);
 
   closePopup(popupEdit);
 }
 
-function submitPlaceForm(event) {
-  event.preventDefault();
+function submitPlaceForm(e) {
+  e.preventDefault();
 
-  const place = placeNameInput.value.trim();
-  const image = placeImageInput.value.trim();
+  const name = placeNameInput.value.trim();
+  const link = placeImageInput.value.trim();
 
-  if (place && image) {
-    const newCard = createCard(place, image);
-    prependCard(newCard);
-  }
-
-  closePopup(popupPlace);
-  formPlace.reset();
+  addNewCard({
+    name,
+    link,
+  })
+    .then(() => {
+      const newCard = createCard(name, link);
+      prependCard(newCard);
+      closePopup(popupPlace);
+      formPlace.reset();
+    })
+    .catch(alert);
 }
 
 function submitAvatarForm(e) {
@@ -145,4 +165,5 @@ export {
   addListenersToForms,
   addListenerToConfirmButton,
   handlePhotoClicked,
+  setInitValuesToProfile,
 };

@@ -1,6 +1,8 @@
+import { setInitValuesToProfile } from '../components/modal.js';
+
 import { enableValidation } from '../components/validate.js';
 
-import { createInitCards } from '../components/card.js';
+import { getAndCreateInitCards } from '../components/card.js';
 
 import {
   addListenersToProfileButtons,
@@ -16,7 +18,8 @@ addCloseListenersToPopups();
 addListenersToForms();
 addListenerToConfirmButton();
 
-createInitCards();
+setInitValuesToProfile();
+getAndCreateInitCards();
 
 enableValidation({
   formSelector: '.form',
