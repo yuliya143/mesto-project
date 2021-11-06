@@ -12,7 +12,17 @@ const checkIfResOk = (res) => {
     return res.json();
   }
 
-  return Promise.reject(`Ошибка: ${res.status}`);
+  return Promise.reject(res);
+};
+
+const handleError = (err, formError) => {
+  if (!err.json) {
+    formError.textContent = 'Что-то пошло не так... :( Попробуйте еще раз.';
+  } else {
+    err.json().then((err) => {
+      formError.textContent = err.message;
+    });
+  }
 };
 
 const getInitialCards = () => {
@@ -77,6 +87,7 @@ const removeLike = (cardId) => {
 };
 
 export {
+  handleError,
   getInitialCards,
   getUserData,
   updateUserData,

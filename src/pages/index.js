@@ -1,7 +1,6 @@
+import { hideSpinner } from '../components/utils.js';
 import { setInitValuesToProfile } from '../components/modal.js';
-
 import { enableValidation } from '../components/validate.js';
-
 import { getAndCreateInitCards } from '../components/card.js';
 
 import {
@@ -22,7 +21,12 @@ addListenerToConfirmButton();
 getUserData()
   .then((user) => {
     setInitValuesToProfile(user);
-    getAndCreateInitCards(user._id);
+
+    return getAndCreateInitCards(user._id);
+  })
+  .then(() => {
+    console.log('hide avatar');
+    hideSpinner();
   })
   .catch();
 

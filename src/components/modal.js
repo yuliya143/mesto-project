@@ -1,4 +1,4 @@
-import { updateUserData, updateUserAvatar, addNewCard, deleteCard } from './api.js';
+import { handleError, updateUserData, updateUserAvatar, addNewCard, deleteCard } from './api.js';
 import { openPopup, closePopup } from './utils.js';
 import { createCard, prependCard } from './card.js';
 
@@ -18,16 +18,19 @@ const jobInput = document.querySelector('.form__input_el_occupation');
 const nameProfile = document.querySelector('.profile__name');
 const jobProfile = document.querySelector('.profile__profession');
 const submitProfileButton = formProfile.querySelector('.form__button');
+const profileFormError = formProfile.querySelector('.form__error');
 
 const formPlace = document.querySelector('.form_type_place');
 const placeNameInput = document.querySelector('.form__input_el_new-place');
 const placeImageInput = document.querySelector('.form__input_el_link-image');
 const submitPlaceButton = formPlace.querySelector('.form__button');
+const placeFormError = formPlace.querySelector('.form__error');
 
 const formAvatar = document.querySelector('.form_type_avatar');
 const avatarPhotoInput = document.querySelector('.form__input_el_avatar');
 const profilePhoto = document.querySelector('.profile__photo');
 const submitAvatarButton = formAvatar.querySelector('.form__button');
+const avatarFormError = formAvatar.querySelector('.form__error');
 
 const popupPhoto = document.querySelector('.popup_type_photo');
 const popupPhotoImage = document.querySelector('.popup__image');
@@ -83,6 +86,8 @@ function addListenersToForms() {
 function submitProfileForm(e) {
   e.preventDefault();
 
+  profileFormError.textContent = '';
+
   const setLoading = renderLoading(submitProfileButton);
 
   setLoading(true);
@@ -99,7 +104,7 @@ function submitProfileForm(e) {
       jobProfile.textContent = about;
       closePopup(popupEdit);
     })
-    .catch(console.log)
+    .catch((err) => handleError(err, profileFormError))
     .finally(() => {
       setLoading(false);
     });
@@ -107,6 +112,8 @@ function submitProfileForm(e) {
 
 function submitPlaceForm(e) {
   e.preventDefault();
+
+  placeFormError.textContent = '';
 
   const setLoading = renderLoading(submitPlaceButton);
 
@@ -125,7 +132,7 @@ function submitPlaceForm(e) {
       closePopup(popupPlace);
       formPlace.reset();
     })
-    .catch(alert)
+    .catch((err) => handleError(err, placeFormError))
     .finally(() => {
       setLoading(false);
     });
@@ -133,6 +140,8 @@ function submitPlaceForm(e) {
 
 function submitAvatarForm(e) {
   e.preventDefault();
+
+  avatarFormError.textContent = '';
 
   const setLoading = renderLoading(submitAvatarButton);
 
@@ -147,7 +156,7 @@ function submitAvatarForm(e) {
       closePopup(popupAvatar);
       formAvatar.reset();
     })
-    .catch(console.log)
+    .catch((err) => handleError(err, avatarFormError))
     .finally(() => {
       setLoading(false);
     });

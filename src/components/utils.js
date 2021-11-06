@@ -1,3 +1,9 @@
+function hideSpinner() {
+  const spinner = document.querySelector('.spinner');
+
+  spinner.classList.remove('spinner_active');
+}
+
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   addKeyListenerToDocument();
@@ -26,4 +32,4 @@ function handleKeyClosePopup(e) {
   });
 }
 
-export { openPopup, closePopup };
+export { openPopup, closePopup, hideSpinner };
