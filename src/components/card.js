@@ -6,14 +6,12 @@ const galleryList = document.querySelector('.gallery__list');
 const popupCardRemove = document.querySelector('.popup_type_confirmation');
 
 function getAndCreateInitCards(userId) {
-  return getInitialCards()
-    .then((initialCards) => {
-      initialCards.reverse().forEach((place) => {
-        const card = createCard(place, userId);
-        prependCard(card);
-      });
-    })
-    .catch(console.log);
+  return getInitialCards().then((initialCards) => {
+    initialCards.reverse().forEach((place) => {
+      const card = createCard(place, userId);
+      prependCard(card);
+    });
+  });
 }
 
 function createCard(place, userId) {

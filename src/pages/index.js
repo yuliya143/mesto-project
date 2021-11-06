@@ -24,11 +24,8 @@ getUserData()
 
     return getAndCreateInitCards(user._id);
   })
-  .then(() => {
-    console.log('hide avatar');
-    hideSpinner();
-  })
-  .catch();
+  .then(hideSpinner)
+  .catch((err) => alert('Что-то пошло не так... :('));
 
 enableValidation({
   formSelector: '.form',
