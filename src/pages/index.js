@@ -1,6 +1,7 @@
+import { hideSpinner } from '../components/utils.js';
+import { setInitValuesToProfile } from '../components/modal.js';
 import { enableValidation } from '../components/validate.js';
-
-import { createInitCards } from '../components/card.js';
+import { getAndCreateInitCards } from '../components/card.js';
 
 import {
   addListenersToProfileButtons,
@@ -10,13 +11,24 @@ import {
 } from '../components/modal.js';
 
 import './index.css';
+import { getUserData } from '../components/api.js';
 
 addListenersToProfileButtons();
 addCloseListenersToPopups();
 addListenersToForms();
 addListenerToConfirmButton();
 
-createInitCards();
+getUserData()
+  .then((user) => {
+    setInitValuesToProfile(user);
+
+    return getAndCreateInitCards(user._id);
+  })
+  .then(() => {
+    console.log('hide avatar');
+    hideSpinner();
+  })
+  .catch();
 
 enableValidation({
   formSelector: '.form',

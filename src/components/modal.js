@@ -1,5 +1,6 @@
+import { handleError, updateUserData, updateUserAvatar, addNewCard, deleteCard } from './api.js';
 import { openPopup, closePopup } from './utils.js';
-import { removeCard, createCard, prependCard } from './card.js';
+import { createCard, prependCard } from './card.js';
 
 const editButton = document.querySelector('.profile__edit-button');
 const plusButton = document.querySelector('.profile__button');
@@ -17,16 +18,19 @@ const jobInput = document.querySelector('.form__input_el_occupation');
 const nameProfile = document.querySelector('.profile__name');
 const jobProfile = document.querySelector('.profile__profession');
 const submitProfileButton = formProfile.querySelector('.form__button');
+const profileFormError = formProfile.querySelector('.form__error');
 
 const formPlace = document.querySelector('.form_type_place');
 const placeNameInput = document.querySelector('.form__input_el_new-place');
 const placeImageInput = document.querySelector('.form__input_el_link-image');
 const submitPlaceButton = formPlace.querySelector('.form__button');
+const placeFormError = formPlace.querySelector('.form__error');
 
 const formAvatar = document.querySelector('.form_type_avatar');
 const avatarPhotoInput = document.querySelector('.form__input_el_avatar');
 const profilePhoto = document.querySelector('.profile__photo');
 const submitAvatarButton = formAvatar.querySelector('.form__button');
+const avatarFormError = formAvatar.querySelector('.form__error');
 
 const popupPhoto = document.querySelector('.popup_type_photo');
 const popupPhotoImage = document.querySelector('.popup__image');
@@ -41,6 +45,12 @@ function addListenersToProfileButtons() {
   plusButton.addEventListener('click', () => openPopup(popupPlace));
 
   avatarButton.addEventListener('click', () => openPopup(popupAvatar));
+}
+
+function setInitValuesToProfile(user) {
+  nameProfile.textContent = user.name;
+  jobProfile.textContent = user.about;
+  profilePhoto.src = user.avatar;
 }
 
 function setValuesToFormProfile() {
@@ -76,46 +86,106 @@ function addListenersToForms() {
 function submitProfileForm(e) {
   e.preventDefault();
 
-  const nameText = nameInput.value.trim();
-  const jobText = jobInput.value.trim();
+  profileFormError.textContent = '';
 
-  if (nameText && jobText) {
-    nameProfile.textContent = nameText;
-    jobProfile.textContent = jobText;
-  }
+  const setLoading = renderLoading(submitProfileButton);
 
-  closePopup(popupEdit);
+  setLoading(true);
+
+  const name = nameInput.value.trim();
+  const about = jobInput.value.trim();
+
+  updateUserData({
+    name,
+    about,
+  })
+    .then(() => {
+      nameProfile.textContent = name;
+      jobProfile.textContent = about;
+      closePopup(popupEdit);
+    })
+    .catch((err) => handleError(err, profileFormError))
+    .finally(() => {
+      setLoading(false);
+    });
 }
 
-function submitPlaceForm(event) {
-  event.preventDefault();
+function submitPlaceForm(e) {
+  e.preventDefault();
 
-  const place = placeNameInput.value.trim();
-  const image = placeImageInput.value.trim();
+  placeFormError.textContent = '';
 
-  if (place && image) {
-    const newCard = createCard(place, image);
-    prependCard(newCard);
-  }
+  const setLoading = renderLoading(submitPlaceButton);
 
-  closePopup(popupPlace);
-  formPlace.reset();
+  setLoading(true);
+
+  const name = placeNameInput.value.trim();
+  const link = placeImageInput.value.trim();
+
+  addNewCard({
+    name,
+    link,
+  })
+    .then((place) => {
+      const newCard = createCard(place, place.owner._id);
+      prependCard(newCard);
+      closePopup(popupPlace);
+      formPlace.reset();
+    })
+    .catch((err) => handleError(err, placeFormError))
+    .finally(() => {
+      setLoading(false);
+    });
 }
 
 function submitAvatarForm(e) {
   e.preventDefault();
 
+  avatarFormError.textContent = '';
+
+  const setLoading = renderLoading(submitAvatarButton);
+
+  setLoading(true);
+
   const src = avatarPhotoInput.value;
 
-  profilePhoto.setAttribute('src', src);
-
-  closePopup(popupAvatar);
-  formAvatar.reset();
+  updateUserAvatar({ avatar: src })
+    .then(() => {
+      console.log();
+      profilePhoto.setAttribute('src', src);
+      closePopup(popupAvatar);
+      formAvatar.reset();
+    })
+    .catch((err) => handleError(err, avatarFormError))
+    .finally(() => {
+      setLoading(false);
+    });
 }
 
-function handleConfirmationClose() {
-  removeCard();
-  closePopup(popupCardRemove);
+function renderLoading(btn) {
+  const formButton = btn;
+  const text = formButton.textContent;
+
+  return function (isLoading) {
+    if (isLoading) {
+      formButton.textContent = 'Сохранение...';
+    } else {
+      formButton.textContent = text;
+    }
+  };
+}
+
+function handleConfirmationClose(e) {
+  const id = popupCardRemove.dataset.removeCardId;
+  deleteCard(id)
+    .then(() => {
+      const card = document.getElementById(id);
+
+      card.remove();
+
+      closePopup(popupCardRemove);
+    })
+    .catch(console.log);
 }
 
 function addListenerToConfirmButton() {
@@ -145,4 +215,5 @@ export {
   addListenersToForms,
   addListenerToConfirmButton,
   handlePhotoClicked,
+  setInitValuesToProfile,
 };

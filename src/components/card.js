@@ -1,54 +1,46 @@
+import { getInitialCards, addLike, removeLike } from './api.js';
 import { handlePhotoClicked } from './modal.js';
 import { openPopup } from './utils.js';
-
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
-  },
-];
 
 const galleryList = document.querySelector('.gallery__list');
 const popupCardRemove = document.querySelector('.popup_type_confirmation');
 
-let cardForRemoving;
-
-function createInitCards() {
-  initialCards.forEach((place) => {
-    const card = createCard(place.name, place.link);
-    prependCard(card);
-  });
+function getAndCreateInitCards(userId) {
+  return getInitialCards()
+    .then((initialCards) => {
+      initialCards.reverse().forEach((place) => {
+        const card = createCard(place, userId);
+        prependCard(card);
+      });
+    })
+    .catch(console.log);
 }
 
-function createCard(nameValue, linkValue) {
+function createCard(place, userId) {
   const placeTemplate = document.querySelector('#place-template').content;
   const placeElement = placeTemplate.querySelector('.place').cloneNode(true);
   const title = placeElement.querySelector('.place__title');
   const image = placeElement.querySelector('.place__image');
+  const likes = placeElement.querySelector('.place__likes');
+  const icon = placeElement.querySelector('.place__icon_type_like');
+  const deleteButton = placeElement.querySelector('.place__delete-button');
 
-  title.textContent = nameValue;
-  image.setAttribute('src', linkValue);
-  image.setAttribute('alt', nameValue);
+  title.textContent = place.name;
+  likes.textContent = place.likes.length || '';
+
+  const isLiked = place.likes.some((user) => user._id === userId);
+
+  if (isLiked) {
+    icon.classList.add('place__icon_active');
+  }
+
+  placeElement.id = place._id;
+  image.setAttribute('src', place.link);
+  image.setAttribute('alt', place.name);
+
+  if (userId !== place.owner._id) {
+    deleteButton.remove();
+  }
 
   removeListenerIfImageNotLoad(image);
   addListenersToCard(placeElement);
@@ -67,11 +59,17 @@ function addListenersToCard(card) {
 
   likeButton.addEventListener('click', handleLikeButtonClicked);
   image.addEventListener('click', handlePhotoClicked);
-  deleteButton.addEventListener('click', handleDeleteButtonClicked);
+
+  if (deleteButton) {
+    deleteButton.addEventListener('click', handleDeleteButtonClicked);
+  }
 }
 
 function handleDeleteButtonClicked(e) {
-  cardForRemoving = e.currentTarget.closest('.place');
+  const id = e.currentTarget.closest('.place').id;
+
+  popupCardRemove.dataset.removeCardId = id;
+
   openPopup(popupCardRemove);
 }
 
@@ -79,16 +77,28 @@ function prependCard(placeElement) {
   galleryList.prepend(placeElement);
 }
 
-function removeCard() {
-  cardForRemoving.remove();
-  cardForRemoving = null;
-}
-
-function handleLikeButtonClicked(event) {
-  const btn = event.currentTarget;
+function handleLikeButtonClicked(e) {
+  const btn = e.currentTarget;
   const likeButtonIcon = btn.querySelector('.place__icon_type_like');
+  const card = e.currentTarget.closest('.place');
+  const id = card.id;
+  const like = card.querySelector('.place__likes');
 
-  return likeButtonIcon.classList.toggle('place__icon_active');
+  if (!likeButtonIcon.classList.contains('place__icon_active')) {
+    addLike(id)
+      .then((place) => {
+        like.textContent = place.likes.length || '';
+        likeButtonIcon.classList.add('place__icon_active');
+      })
+      .catch(console.log);
+  } else {
+    removeLike(id)
+      .then((place) => {
+        like.textContent = place.likes.length || '';
+        likeButtonIcon.classList.remove('place__icon_active');
+      })
+      .catch(console.log);
+  }
 }
 
-export { createInitCards, createCard, prependCard, removeCard };
+export { getAndCreateInitCards, createCard, prependCard };
