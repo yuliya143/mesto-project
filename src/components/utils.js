@@ -23,9 +23,8 @@ function removeKeyListenerFromDocument() {
 }
 
 function handleKeyClosePopup(e) {
-  const openedPopup = document.querySelector('.popup_opened');
-
   if (e.code === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
     closePopup(openedPopup);
   }
 }
